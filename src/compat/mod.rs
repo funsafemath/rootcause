@@ -290,6 +290,7 @@ impl<C: ?Sized, T> From<ReportRef<'_, C, markers::Cloneable, T>> for ReportAsErr
 pub struct MainReport(Report<Dynamic, Cloneable, Local>);
 
 impl<E: IntoReport<Local>> From<E> for MainReport {
+    #[track_caller]
     fn from(value: E) -> Self {
         Self(value.into_report().into_dynamic().into_cloneable())
     }
